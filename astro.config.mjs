@@ -8,6 +8,6 @@ export default defineConfig({
   },
   site: import.meta.env.DEV
     ? 'http://localhost:4321/'
-    : 'https://mySuperCoolProjects.github.io/repo-239/',
-  base: import.meta.env.DEV ? undefined : '/repo-239/'
+    : 'https://mySuperCoolProjects.github.io/repo-306/',
+  base: import.meta.env.DEV ? undefined : '/repo-306/'
 });
