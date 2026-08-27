@@ -1,14 +1,14 @@
-<div id="back-btn">Back to Gallery</div>
-<div class="content">
+<div id='back-btn'>Back to Gallery</div>
+<div class='content'>
   <h2>Photo<span>³</span></h2>
-  <br>
-  <div class="button">Focus</div>
+  <br />
+  <div class='button'>Focus</div>
 </div>
-<section class="inf-grid-hero-container">
-  <div class="right"></div>
-  <div class="bottom"></div>
-  <div class="left"></div>
-  <div class="top"></div>
+<section class='inf-grid-hero-container'>
+  <div class='right'></div>
+  <div class='bottom'></div>
+  <div class='left'></div>
+  <div class='top'></div>
 </section>
 
 <style is:global>
@@ -21,7 +21,8 @@
     scroll-behavior: smooth;
   }
 
-  html, body {
+  html,
+  body {
     height: 100% !important;
     overflow: hidden !important;
   }
@@ -37,12 +38,14 @@
     height: 100% !important;
     width: 100% !important;
     --theme-clr: #fff;
-    font-family: "Mona Sans", sans-serif;
+    font-family: 'Mona Sans', sans-serif;
     background: var(--theme-clr) !important;
   }
 
   @keyframes fadeIn {
-    to { opacity: 1; }
+    to {
+      opacity: 1;
+    }
   }
 
   div#back-btn {
@@ -63,7 +66,9 @@
   }
 
   div#back-btn:hover {
-    box-shadow: inset 0 0 8px 1px #fff, inset 0 0 0 1px #fff;
+    box-shadow:
+      inset 0 0 8px 1px #fff,
+      inset 0 0 0 1px #fff;
   }
 
   body:has(div.selectedPane) div#back-btn {
@@ -121,7 +126,13 @@
   .inf-grid-hero-container > div > div {
     width: 100%;
     height: 100%;
-    background: repeating-linear-gradient(45deg, #94a4c211 0%, #94a4c211 5%, transparent 5%, transparent 10%);
+    background: repeating-linear-gradient(
+      45deg,
+      #94a4c211 0%,
+      #94a4c211 5%,
+      transparent 5%,
+      transparent 10%
+    );
     background-size: cover !important;
     background-position: center !important;
     opacity: 0;
@@ -133,7 +144,9 @@
   }
 
   .inf-grid-hero-container > div > div.loaded {
-    transition: transform 0.4s ease-out, opacity 0.4s ease-out;
+    transition:
+      transform 0.4s ease-out,
+      opacity 0.4s ease-out;
     transform-style: preserve-3d;
     opacity: 1;
     z-index: 2;
@@ -149,7 +162,11 @@
   }
 
   .inf-grid-hero-container > div.top::after {
-    background: linear-gradient(180deg, transparent, var(--theme-clr) calc(1% * (100 - var(--rev-dis))));
+    background: linear-gradient(
+      180deg,
+      transparent,
+      var(--theme-clr) calc(1% * (100 - var(--rev-dis)))
+    );
   }
 
   .inf-grid-hero-container > div.top .shift-away {
@@ -168,7 +185,11 @@
   }
 
   .inf-grid-hero-container > div.left::after {
-    background: linear-gradient(90deg, transparent, var(--theme-clr) calc(1% * (100 - var(--rev-dis))));
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--theme-clr) calc(1% * (100 - var(--rev-dis)))
+    );
   }
 
   .inf-grid-hero-container > div.left .shift-away {
@@ -187,7 +208,11 @@
   }
 
   .inf-grid-hero-container > div.bottom::after {
-    background: linear-gradient(0deg, transparent, var(--theme-clr) calc(1% * (100 - var(--rev-dis))));
+    background: linear-gradient(
+      0deg,
+      transparent,
+      var(--theme-clr) calc(1% * (100 - var(--rev-dis)))
+    );
   }
 
   .inf-grid-hero-container > div.bottom .shift-away {
@@ -206,7 +231,11 @@
   }
 
   .inf-grid-hero-container > div.right::after {
-    background: linear-gradient(270deg, transparent, var(--theme-clr) calc(1% * (100 - var(--rev-dis))));
+    background: linear-gradient(
+      270deg,
+      transparent,
+      var(--theme-clr) calc(1% * (100 - var(--rev-dis)))
+    );
   }
 
   .inf-grid-hero-container > div.right .shift-away {
@@ -319,59 +348,61 @@
   }
 
   .content div.button:hover {
-    box-shadow: inset 0 0 8px 1px #fff, inset 0 0 0 1px #fff;
+    box-shadow:
+      inset 0 0 8px 1px #fff,
+      inset 0 0 0 1px #fff;
   }
 </style>
 
 <script>
   import { baseUrl } from '@/utils/functions';
-import { Pane } from 'tweakpane';
+  import { Pane } from 'tweakpane';
 
   const directions = ['top', 'right', 'bottom', 'left'];
   const images = [
-    "/assets/gallery/106.jpg",
-    "/assets/gallery/115.jpg",
-    "/assets/gallery/116.jpg",
-    "/assets/gallery/124.jpg",
-    "/assets/gallery/126.jpg",
-    "/assets/gallery/130.jpg",
-    "/assets/gallery/143.jpg",
-    "/assets/gallery/152.jpg",
-    "/assets/gallery/167.jpg",
-    "/assets/gallery/190.jpg",
-    "/assets/gallery/191.jpg",
-    "/assets/gallery/193.jpg",
-    "/assets/gallery/195.jpg",
-    "/assets/gallery/204.jpg",
-    "/assets/gallery/227.jpg",
-    "/assets/gallery/251.jpg",
-    "/assets/gallery/253.jpg",
-    "/assets/gallery/256.jpg",
-    "/assets/gallery/257.jpg",
-    "/assets/gallery/259.jpg",
-    "/assets/gallery/271.jpg",
-    "/assets/gallery/274.jpg",
-    "/assets/gallery/277.jpg",
-    "/assets/gallery/278.jpg",
-    "/assets/gallery/289.jpg",
-    "/assets/gallery/291.jpg",
-    "/assets/gallery/296.jpg",
-    "/assets/gallery/299.jpg",
-    "/assets/gallery/306.jpg",
-    "/assets/gallery/308.jpg",
-    "/assets/gallery/318.jpg",
-    "/assets/gallery/327.jpg",
-    "/assets/gallery/337.jpg",
-    "/assets/gallery/339.jpg",
-    "/assets/gallery/376.jpg",
-    "/assets/gallery/381.jpg",
-    "/assets/gallery/392.jpg",
-    "/assets/gallery/395.jpg",
-    "/assets/gallery/402.jpg",
-    "/assets/gallery/411.jpg",
-    "/assets/gallery/419.jpg",
-    "/assets/gallery/424.jpg",
-    "/assets/gallery/428.jpg"
+    '/assets/gallery/106.jpg',
+    '/assets/gallery/115.jpg',
+    '/assets/gallery/116.jpg',
+    '/assets/gallery/124.jpg',
+    '/assets/gallery/126.jpg',
+    '/assets/gallery/130.jpg',
+    '/assets/gallery/143.jpg',
+    '/assets/gallery/152.jpg',
+    '/assets/gallery/167.jpg',
+    '/assets/gallery/190.jpg',
+    '/assets/gallery/191.jpg',
+    '/assets/gallery/193.jpg',
+    '/assets/gallery/195.jpg',
+    '/assets/gallery/204.jpg',
+    '/assets/gallery/227.jpg',
+    '/assets/gallery/251.jpg',
+    '/assets/gallery/253.jpg',
+    '/assets/gallery/256.jpg',
+    '/assets/gallery/257.jpg',
+    '/assets/gallery/259.jpg',
+    '/assets/gallery/271.jpg',
+    '/assets/gallery/274.jpg',
+    '/assets/gallery/277.jpg',
+    '/assets/gallery/278.jpg',
+    '/assets/gallery/289.jpg',
+    '/assets/gallery/291.jpg',
+    '/assets/gallery/296.jpg',
+    '/assets/gallery/299.jpg',
+    '/assets/gallery/306.jpg',
+    '/assets/gallery/308.jpg',
+    '/assets/gallery/318.jpg',
+    '/assets/gallery/327.jpg',
+    '/assets/gallery/337.jpg',
+    '/assets/gallery/339.jpg',
+    '/assets/gallery/376.jpg',
+    '/assets/gallery/381.jpg',
+    '/assets/gallery/392.jpg',
+    '/assets/gallery/395.jpg',
+    '/assets/gallery/402.jpg',
+    '/assets/gallery/411.jpg',
+    '/assets/gallery/419.jpg',
+    '/assets/gallery/424.jpg',
+    '/assets/gallery/428.jpg'
   ];
 
   let density: number = 5;
@@ -401,7 +432,9 @@ import { Pane } from 'tweakpane';
   }
 
   function renderWalls() {
-    const gridContainer = document.querySelector('.inf-grid-hero-container') as HTMLElement;
+    const gridContainer = document.querySelector(
+      '.inf-grid-hero-container'
+    ) as HTMLElement;
     gridContainer.style.setProperty('--grid-sz', String(density));
     gridContainer.style.setProperty('--rev-dis', String(distance));
 
@@ -430,11 +463,16 @@ import { Pane } from 'tweakpane';
 
     intervalId = setInterval(() => {
       if (isPaused) return;
-      const unloadedElements = allGridElements.filter(el => !el.classList.contains('loaded'));
+      const unloadedElements = allGridElements.filter(
+        el => !el.classList.contains('loaded')
+      );
       if (unloadedElements.length === 0) return;
 
-      const randomElement = unloadedElements[Math.floor(Math.random() * unloadedElements.length)];
-      const randomImage = baseUrl(images[Math.floor(Math.random() * images.length)]);
+      const randomElement =
+        unloadedElements[Math.floor(Math.random() * unloadedElements.length)];
+      const randomImage = baseUrl(
+        images[Math.floor(Math.random() * images.length)]
+      );
       randomElement.style.backgroundImage = `url('${randomImage}')`;
       randomElement.classList.add('loaded');
       loadedCount++;
@@ -484,22 +522,24 @@ import { Pane } from 'tweakpane';
   const PARAMS = {
     size: density,
     distance: 0,
-    speed: speed,
+    speed: speed
   };
 
   const pane = new Pane();
   const size = pane.addBinding(PARAMS, 'size', { min: 2, max: 8, step: 1 });
-  size.on('change', function(ev: { value: number }) {
+  size.on('change', function (ev: { value: number }) {
     density = ev.value;
     renderWalls();
   });
   const dis = pane.addBinding(PARAMS, 'distance', { min: 0, max: 100, step: 1 });
-  dis.on('change', function(ev: { value: number }) {
+  dis.on('change', function (ev: { value: number }) {
     distance = ev.value;
-    document.querySelector('.inf-grid-hero-container')?.style.setProperty('--rev-dis', String(distance));
+    document
+      .querySelector('.inf-grid-hero-container')
+      ?.style.setProperty('--rev-dis', String(distance));
   });
   const spd = pane.addBinding(PARAMS, 'speed', { min: 50, max: 400, step: 50 });
-  spd.on('change', function(ev: { value: number }) {
+  spd.on('change', function (ev: { value: number }) {
     speed = ev.value;
     startImageInterval();
   });
@@ -515,5 +555,7 @@ import { Pane } from 'tweakpane';
     document.body.classList.add('all-loaded');
   });
 
-  preloadImages(images, () => { renderWalls(); });
+  preloadImages(images, () => {
+    renderWalls();
+  });
 </script>
