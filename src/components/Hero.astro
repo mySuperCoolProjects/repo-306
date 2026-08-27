@@ -1,0 +1,518 @@
+<div id="back-btn">Back to Gallery</div>
+<div class="content">
+  <h2>Photo<span>³</span></h2>
+  <br>
+  <div class="button">Focus</div>
+</div>
+<section class="inf-grid-hero-container">
+  <div class="right"></div>
+  <div class="bottom"></div>
+  <div class="left"></div>
+  <div class="top"></div>
+</section>
+
+<style is:global>
+  @import url('https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,200..900;1,200..900&display=swap');
+
+  * {
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+  }
+
+  html, body {
+    height: 100% !important;
+    overflow: hidden !important;
+  }
+
+  body {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    align-items: center !important;
+    margin: 0 !important;
+    min-height: 100% !important;
+    height: 100% !important;
+    width: 100% !important;
+    --theme-clr: #fff;
+    font-family: "Mona Sans", sans-serif;
+    background: var(--theme-clr) !important;
+  }
+
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+
+  div#back-btn {
+    position: absolute;
+    left: 1em;
+    top: 1em;
+    border: 1px solid #aaa;
+    z-index: 101;
+    background: #1e1e1e;
+    padding: 6px 42px 8px 42px;
+    border-radius: 12px;
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+    transition: box-shadow 0.2s ease-in-out;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  div#back-btn:hover {
+    box-shadow: inset 0 0 8px 1px #fff, inset 0 0 0 1px #fff;
+  }
+
+  body:has(div.selectedPane) div#back-btn {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  body:has(div.selectedPane) div.content {
+    transition: opacity 0.4s ease-in-out;
+    opacity: 0;
+    z-index: -1;
+  }
+
+  body:has(div.selectedPane) div.tp-dfwv {
+    display: none;
+  }
+
+  .inf-grid-hero-container {
+    height: 100vh;
+    width: 100vw;
+    perspective: 1000px;
+    position: relative;
+    --sz: 1800px;
+    --grid-sz: 0;
+    --rev-dis: 0;
+  }
+
+  .inf-grid-hero-container > div {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    display: grid;
+    place-items: center;
+    z-index: 1;
+    grid-template-columns: repeat(var(--grid-sz), 1fr);
+    grid-template-rows: repeat(var(--grid-sz), 1fr);
+    gap: 6px;
+  }
+
+  .inf-grid-hero-container > div::after {
+    content: '';
+    display: block;
+    height: 100%;
+    background: var(--theme-clr);
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 3;
+  }
+
+  .inf-grid-hero-container > div > div {
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(45deg, #94a4c211 0%, #94a4c211 5%, transparent 5%, transparent 10%);
+    background-size: cover !important;
+    background-position: center !important;
+    opacity: 0;
+  }
+
+  .inf-grid-hero-container > div > div:hover {
+    border: 4px solid #fff;
+    cursor: pointer;
+  }
+
+  .inf-grid-hero-container > div > div.loaded {
+    transition: transform 0.4s ease-out, opacity 0.4s ease-out;
+    transform-style: preserve-3d;
+    opacity: 1;
+    z-index: 2;
+    transform: translate3d(0, 0, -1px) !important;
+  }
+
+  .inf-grid-hero-container > div.top {
+    top: 0;
+    transform-origin: top center;
+    transform: rotateX(-90deg);
+    height: var(--sz);
+    perspective: 1000px;
+  }
+
+  .inf-grid-hero-container > div.top::after {
+    background: linear-gradient(180deg, transparent, var(--theme-clr) calc(1% * (100 - var(--rev-dis))));
+  }
+
+  .inf-grid-hero-container > div.top .shift-away {
+    translate: 0% 100%;
+  }
+
+  .inf-grid-hero-container > div.top > div {
+    transform: translate3d(0, 0, -100vh);
+  }
+
+  .inf-grid-hero-container > div.left {
+    left: 0;
+    transform-origin: center left;
+    transform: rotateY(90deg);
+    width: var(--sz);
+  }
+
+  .inf-grid-hero-container > div.left::after {
+    background: linear-gradient(90deg, transparent, var(--theme-clr) calc(1% * (100 - var(--rev-dis))));
+  }
+
+  .inf-grid-hero-container > div.left .shift-away {
+    translate: 100% 0%;
+  }
+
+  .inf-grid-hero-container > div.left > div {
+    transform: translate3d(0, 0, -50vw);
+  }
+
+  .inf-grid-hero-container > div.bottom {
+    bottom: 0;
+    transform-origin: bottom center;
+    transform: rotateX(90deg);
+    height: var(--sz);
+  }
+
+  .inf-grid-hero-container > div.bottom::after {
+    background: linear-gradient(0deg, transparent, var(--theme-clr) calc(1% * (100 - var(--rev-dis))));
+  }
+
+  .inf-grid-hero-container > div.bottom .shift-away {
+    translate: 0% -100%;
+  }
+
+  .inf-grid-hero-container > div.bottom > div {
+    transform: translate3d(0, 0, -50vh);
+  }
+
+  .inf-grid-hero-container > div.right {
+    right: 0;
+    transform-origin: center right;
+    transform: rotateY(-90deg);
+    width: var(--sz);
+  }
+
+  .inf-grid-hero-container > div.right::after {
+    background: linear-gradient(270deg, transparent, var(--theme-clr) calc(1% * (100 - var(--rev-dis))));
+  }
+
+  .inf-grid-hero-container > div.right .shift-away {
+    translate: -100% 0%;
+  }
+
+  .inf-grid-hero-container > div.right > div {
+    transform: translate3d(0, 0, -50vw);
+  }
+
+  .inf-grid-hero-container > div.selectedPane {
+    transform: rotateX(0deg);
+    width: 100vw;
+    height: 100vh;
+    z-index: 100;
+    transition: all 1s ease-in-out;
+    position: absolute;
+  }
+
+  .inf-grid-hero-container > div.selectedPane::after {
+    background: none;
+  }
+
+  .inf-grid-hero-container > div.selectedPane.top > div.selected {
+    top: 0;
+  }
+
+  .inf-grid-hero-container > div.selectedPane.left > div.selected {
+    left: 0;
+  }
+
+  .inf-grid-hero-container > div.selectedPane.right > div.selected {
+    right: 0;
+  }
+
+  .inf-grid-hero-container > div.selectedPane.bottom > div.selected {
+    bottom: 0;
+  }
+
+  .inf-grid-hero-container > div.selectedPane > div {
+    opacity: 0;
+  }
+
+  .inf-grid-hero-container > div.selectedPane > div.selected {
+    transition: all 1s ease-in-out;
+    rotate: 90deg 90deg;
+    transform: translate3d(0, 100px, 0);
+    position: absolute;
+    z-index: 100;
+    opacity: 0;
+    animation: fadeIn 1s forwards;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat !important;
+    cursor: default;
+  }
+
+  .inf-grid-hero-container > div.selectedPane > div.selected:hover {
+    border: none;
+  }
+</style>
+
+<style>
+  .content {
+    position: absolute;
+    width: 34%;
+    height: 34%;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    border-radius: 8px;
+    backdrop-filter: blur(3px);
+    margin: auto;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    z-index: 5;
+  }
+
+  .content h2 {
+    font-size: 3em;
+    font-weight: 600;
+    z-index: 1;
+    color: #000;
+    user-select: none;
+    margin: 0;
+  }
+
+  .content p {
+    margin-top: 0;
+    color: #333;
+    font-weight: 500;
+    text-align: center;
+  }
+
+  .content span {
+    color: orangered;
+  }
+
+  .content div.button {
+    background: #1e1e1e;
+    padding: 6px 42px 8px 42px;
+    border-radius: 12px;
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+    transition: box-shadow 0.2s ease-in-out;
+  }
+
+  .content div.button:hover {
+    box-shadow: inset 0 0 8px 1px #fff, inset 0 0 0 1px #fff;
+  }
+</style>
+
+<script>
+  import { Pane } from 'tweakpane';
+
+  const directions = ['top', 'right', 'bottom', 'left'];
+  const images = [
+    "/assets/gallery/106.jpg",
+    "/assets/gallery/115.jpg",
+    "/assets/gallery/116.jpg",
+    "/assets/gallery/124.jpg",
+    "/assets/gallery/126.jpg",
+    "/assets/gallery/130.jpg",
+    "/assets/gallery/143.jpg",
+    "/assets/gallery/152.jpg",
+    "/assets/gallery/167.jpg",
+    "/assets/gallery/190.jpg",
+    "/assets/gallery/191.jpg",
+    "/assets/gallery/193.jpg",
+    "/assets/gallery/195.jpg",
+    "/assets/gallery/204.jpg",
+    "/assets/gallery/227.jpg",
+    "/assets/gallery/251.jpg",
+    "/assets/gallery/253.jpg",
+    "/assets/gallery/256.jpg",
+    "/assets/gallery/257.jpg",
+    "/assets/gallery/259.jpg",
+    "/assets/gallery/271.jpg",
+    "/assets/gallery/274.jpg",
+    "/assets/gallery/277.jpg",
+    "/assets/gallery/278.jpg",
+    "/assets/gallery/289.jpg",
+    "/assets/gallery/291.jpg",
+    "/assets/gallery/296.jpg",
+    "/assets/gallery/299.jpg",
+    "/assets/gallery/306.jpg",
+    "/assets/gallery/308.jpg",
+    "/assets/gallery/318.jpg",
+    "/assets/gallery/327.jpg",
+    "/assets/gallery/337.jpg",
+    "/assets/gallery/339.jpg",
+    "/assets/gallery/376.jpg",
+    "/assets/gallery/381.jpg",
+    "/assets/gallery/392.jpg",
+    "/assets/gallery/395.jpg",
+    "/assets/gallery/402.jpg",
+    "/assets/gallery/411.jpg",
+    "/assets/gallery/419.jpg",
+    "/assets/gallery/424.jpg",
+    "/assets/gallery/428.jpg"
+  ];
+
+  let density: number = 5;
+  let distance: number = 0;
+  let speed: number = 200;
+  let isPaused: boolean = false;
+  const allGridElements: HTMLElement[] = [];
+  let intervalId: ReturnType<typeof setInterval>;
+  let loadedCount: number = 0;
+  let totalElementsToLoad: number = 0;
+
+  function preloadImages(srcArray: string[], callback: () => void) {
+    let loaded = 0;
+    const total = srcArray.length;
+    srcArray.forEach(src => {
+      const img = new Image();
+      img.onload = () => {
+        loaded++;
+        if (loaded === total) callback();
+      };
+      img.onerror = () => {
+        loaded++;
+        if (loaded === total) callback();
+      };
+      img.src = src;
+    });
+  }
+
+  function renderWalls() {
+    const gridContainer = document.querySelector('.inf-grid-hero-container') as HTMLElement;
+    gridContainer.style.setProperty('--grid-sz', String(density));
+    gridContainer.style.setProperty('--rev-dis', String(distance));
+
+    allGridElements.length = 0;
+
+    directions.forEach(dir => {
+      const parent = document.querySelector(`.${dir}`) as HTMLElement;
+      if (!parent) return;
+      parent.innerHTML = '';
+      const total = density * density;
+      for (let i = 1; i <= total; i++) {
+        const div = document.createElement('div');
+        div.classList.add(`${dir.charAt(0)}${i}`);
+        parent.appendChild(div);
+        allGridElements.push(div);
+      }
+    });
+
+    startImageInterval();
+  }
+
+  function startImageInterval() {
+    if (intervalId) clearInterval(intervalId);
+    loadedCount = 0;
+    totalElementsToLoad = allGridElements.length;
+
+    intervalId = setInterval(() => {
+      if (isPaused) return;
+      const unloadedElements = allGridElements.filter(el => !el.classList.contains('loaded'));
+      if (unloadedElements.length === 0) return;
+
+      const randomElement = unloadedElements[Math.floor(Math.random() * unloadedElements.length)];
+      const randomImage = images[Math.floor(Math.random() * images.length)];
+      randomElement.style.backgroundImage = `url('${randomImage}')`;
+      randomElement.classList.add('loaded');
+      loadedCount++;
+
+      randomElement.addEventListener('click', () => {
+        randomElement.classList.add('selected');
+        randomElement.parentNode?.classList.add('selectedPane');
+        pauseInterval();
+      });
+
+      if (loadedCount >= totalElementsToLoad) {
+        clearInterval(intervalId);
+        document.dispatchEvent(new Event('allImagesLoaded'));
+      }
+    }, speed);
+  }
+
+  function pauseInterval() {
+    isPaused = true;
+  }
+
+  function resumeInterval() {
+    document.querySelector('.selected')?.classList.remove('selected');
+    document.querySelector('.selectedPane')?.classList.remove('selectedPane');
+    if (!isPaused) return;
+    isPaused = false;
+    startImageInterval();
+  }
+
+  function animateDistance(toValue: number, duration: number = 600) {
+    const el = document.querySelector('.inf-grid-hero-container') as HTMLElement;
+    const fromValue = distance;
+    const startTime = performance.now();
+    function update(currentTime: number) {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      distance = fromValue + (toValue - fromValue) * eased;
+      el.style.setProperty('--rev-dis', distance.toFixed(2));
+      PARAMS.distance = Math.round(distance);
+      pane.refresh();
+      if (progress < 1) requestAnimationFrame(update);
+    }
+    requestAnimationFrame(update);
+  }
+
+  const PARAMS = {
+    size: density,
+    distance: 0,
+    speed: speed,
+  };
+
+  const pane = new Pane();
+  const size = pane.addBinding(PARAMS, 'size', { min: 2, max: 8, step: 1 });
+  size.on('change', function(ev: { value: number }) {
+    density = ev.value;
+    renderWalls();
+  });
+  const dis = pane.addBinding(PARAMS, 'distance', { min: 0, max: 100, step: 1 });
+  dis.on('change', function(ev: { value: number }) {
+    distance = ev.value;
+    document.querySelector('.inf-grid-hero-container')?.style.setProperty('--rev-dis', String(distance));
+  });
+  const spd = pane.addBinding(PARAMS, 'speed', { min: 50, max: 400, step: 50 });
+  spd.on('change', function(ev: { value: number }) {
+    speed = ev.value;
+    startImageInterval();
+  });
+
+  document.getElementById('back-btn')?.addEventListener('click', resumeInterval);
+
+  document.querySelector('.button')?.addEventListener('click', () => {
+    const newValue = distance === 100 ? 0 : 100;
+    animateDistance(newValue, 1000);
+  });
+
+  document.addEventListener('allImagesLoaded', () => {
+    document.body.classList.add('all-loaded');
+  });
+
+  preloadImages(images, () => { renderWalls(); });
+</script>
